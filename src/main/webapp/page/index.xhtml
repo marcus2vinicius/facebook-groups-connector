@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Settings</title>
+</h:head>
+<h:body>
+<h:form id="form">
+	<p:growl id="msg"/>
+	<p:panelGrid id="addId">
+	<h:panelGrid rendered="#{index.render_addId}">
+		<h2>
+			Add the Group Id
+		</h2>
+		<h:panelGrid columns="2">
+			<p:inputText value="#{index.cg.groupID}"/>
+			<p:commandButton value="Ok"
+				actionListener="#{index.click_SearchGroup(index.cg.groupID)}" update="form"/>
+		</h:panelGrid>
+		<p:commandButton value="You do not know the Group Id?" actionListener="#{index.setRender_GroupsSearchByName(true)}"
+				update="form">
+			<f:actionListener binding="#{index.setRender_addId(false)}"/>
+		</p:commandButton>
+	</h:panelGrid>
+	</p:panelGrid>
+
+<h:panelGrid id="idGroupDetail">
+	<h:panelGrid rendered="#{index.render_idGroupDetail}">
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Id"/>
+			<h:outputText value="#{index.groupDetails.id}"/>
+			<h:outputLabel value="Name"/>
+			<h:outputText value="#{index.groupDetails.name}"/>
+			<h:outputLabel value="Description"/>
+			<h:outputText value="#{index.groupDetails.description}"/>
+			<h:outputLabel value="Updated Time"/>
+			<h:outputText value="#{index.groupDetails.updatedTime}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+			</h:outputText>
+			<h:outputLabel value="Created by"/>
+			<h:outputText value="#{index.groupDetails.owner.name}"/>
+		</p:panelGrid>
+		<p:commandButton value="Confirme Group" actionListener="#{index.click_ApplyGroup}"
+						 update="form"/>
+	</h:panelGrid>
+</h:panelGrid>
+
+	<h:panelGrid id="confirDate">
+		<h:panelGrid rendered="#{index.render_confirDate}">
+			<h:outputText value="Date Start"/>
+			<p:calendar value="#{index.cg.lastUpdate}"/>
+			<p:commandButton value="Apply" actionListener="#{index.click_ApplyDate}"
+							 update="form"/>
+		</h:panelGrid>
+	</h:panelGrid>
+
+	<h:panelGrid id="viewFim">
+		<h:panelGrid rendered="#{index.render_viewFim}">
+			<h:outputText value="You want to view log?"/>
+			<p:commandButton value="Finalize Settings" actionListener="#{index.click_Finalize}"/>
+			<p:commandButton value="View Log" actionListener="#{index.click_ViewLog}"
+							 update="form"/>
+		</h:panelGrid>
+	</h:panelGrid>
+
+
+
+	<p:panelGrid id="idGroupsSearchByName">
+		<h:panelGrid rendered="#{index.render_GroupsSearchByName}">
+
+				<h:panelGrid columns="2">
+					<p:inputText id="nameGroupSearch" value="#{index.nameGroupSearch}" required="true"/>
+					<p:commandButton value="Search" actionListener="#{index.searchGroupsByUrl(index.nameGroupSearch)}"
+							update="form"/>
+					<br/>
+					<p:watermark value="Url Group" for="nameGroupSearch"/>
+				</h:panelGrid>
+
+		<p:dataTable id="table" var="g" value="#{index.groups}">
+			<p:column headerText="Name" filterBy="#{g.name}">
+				<h:outputText value="#{g.name}"/>
+			</p:column>
+			<p:column headerText="Action">
+				<p:commandButton value="Select" update="form" ajax="true"
+								 actionListener="#{index.click_SearchGroup(index.cg.groupID)}">
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+
+		</h:panelGrid>
+	</p:panelGrid>
+</h:form>
+</h:body>
+</html>

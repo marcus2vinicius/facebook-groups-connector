@@ -1,0 +1,37 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/layout/layout.xhtml">
+<ui:define name="titulocontent">
+	XAPI Account Settings
+</ui:define>
+
+<ui:define name="row">
+	<h:form id="form_XAPI">
+		<p:messages id="msgs" closable="true"/>
+	<div class="row">
+		<p:panelGrid columns="2">
+			<p:outputLabel value="Server URL"/>
+			<p:inputText id="server_url" value="#{xapiAccountView.xapiAccount.serverUrl}" required="true"/>
+			<p:outputLabel value="Login"/>
+			<p:inputText id="logim" value="#{xapiAccountView.xapiAccount.userName}" required="true"/>
+			<p:outputLabel value="Password"/>
+			<p:password id="password" value="#{xapiAccountView.xapiAccount.password}" required="true"/>
+			<p:outputLabel value="Version"/>
+			<p:inputText id="version" value="#{xapiAccountView.xapiAccount.version}" required="true"/>
+		</p:panelGrid>
+
+		<br/>
+
+		<p:commandLink update="form_XAPI"
+					   actionListener="#{xapiAccountView.save}"
+					   styleClass="btn btn-default">
+			<i class="glyphicon glyphicon-floppy-disk"></i> Save
+		</p:commandLink>
+	</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

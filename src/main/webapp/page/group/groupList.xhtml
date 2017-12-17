@@ -1,0 +1,32 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+	<p:commandLink update=":formgroup" immediate="true"
+					 actionListener="#{groupListView.click_new}"
+					 styleClass="btn btn-default">
+		<i class="glyphicon glyphicon-plus"></i> New
+	</p:commandLink>
+
+	<hr style="height:1px; visibility:hidden; margin-bottom: 0;margin-top: 5px;" />
+
+	<p:dataTable id="dtgroups" var="g" value="#{groupListView.groups}" emptyMessage="No groups found"
+				 selectionMode="single" selection="#{groupListView.groupSelect}"
+				 rowKey="#{g.id}">
+		<p:ajax event="rowSelect" listener="#{groupListView.click_ItemDatatable}" immediate="true" update=":formgroup" />
+		<ui:remove>
+		<p:column headerText="Id" width="180">
+			<h:outputText value="#{g.groupId}" />
+		</p:column>
+		</ui:remove>
+		<p:column headerText="Group">
+			<h:outputText value="#{g.name}" />
+		</p:column>
+		<p:column headerText="Status" width="100">
+			<h:outputText value="#{groupListView.isStarted(g)?'Running':'Stoped'}" />
+		</p:column>
+	</p:dataTable>
+
+</ui:component>

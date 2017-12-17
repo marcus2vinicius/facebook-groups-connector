@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/layout/layout.xhtml">
+	<ui:define name="titulocontent">
+		Groups
+	</ui:define>
+<ui:define name="row">
+
+<h:form id="formgroup">
+
+	<div class="row">
+		<p:messages id="msggroup" closable="true"/>
+	</div>
+
+	<h:panelGroup rendered="#{group1View.render_detail}">
+		<ui:include src="groupDetails.xhtml"/>
+	</h:panelGroup>
+
+	<h:panelGroup rendered="#{group1View.render_list}">
+		<ui:include src="groupList.xhtml"/>
+	</h:panelGroup>
+
+</h:form>
+</ui:define>
+</ui:composition>
+</html>

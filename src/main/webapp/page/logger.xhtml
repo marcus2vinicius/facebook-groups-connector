@@ -1,0 +1,32 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/layout/layout.xhtml">
+<ui:define name="titulocontent">
+	Log #{groupView.groupSelect.name}
+</ui:define>
+
+<ui:define name="row">
+	<h:form id="formlog">
+	<div class="row">
+		<p:poll interval="10" update="table" />
+		<p:dataTable rowIndexVar="idrow" id="table" var="m" value="#{dataStatic.getLogListt(groupView.groupSelect.groupId)}"
+					 paginatorPosition="bottom"
+					 rows="5"
+					 paginator="true"
+					 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					 rowsPerPageTemplate="5,20,50,100,500">
+			<p:column headerText="line" width="50">
+				<h:outputText value="#{idrow+1}"/>
+			</p:column>
+			<p:column headerText="Content Send LRS">
+				<h:outputText value="#{m.msg}"/>
+			</p:column>
+		</p:dataTable>
+	</div>
+	</h:form>
+</ui:define>
+</ui:composition>
+</html>

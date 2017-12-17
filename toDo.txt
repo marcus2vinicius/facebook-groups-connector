@@ -1,0 +1,11 @@
+This Version
+1 - get delete, alter posts, comments
+2 - get files, link
+3 - get enquete
+4 - set token long time OK
+5 - pagination post, comments   OK
+6 - logo alter space
+
+Step Version
+1 - Spring boot (Actuator)
+2 - saves (starts,stops) events date

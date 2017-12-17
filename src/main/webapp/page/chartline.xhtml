@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/layout/layout.xhtml">
+<ui:define name="titulocontent">
+	Chart Line Groups
+</ui:define>
+
+<ui:define name="row">
+
+		<p:messages id="msgs" closable="true"/>
+	<div class="row">
+		<p:chart type="line" model="#{chartLineView.lineModel}" style="height:300px;"/>
+		#{chartLineView.user.name} || #{chartLineView.groups.size}
+	</div>
+
+</ui:define>
+</ui:composition>
+</html>

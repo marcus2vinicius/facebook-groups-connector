@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/layout/layout.xhtml">
+<ui:define name="titulocontent">
+	Panel
+</ui:define>
+<ui:define name="row">
+<h:form id="formhome">
+	<div class="row">
+		<div class="col-lg-3 col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-comments fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">#{homeView.groups.size()}</div>
+							<div>Groups</div>
+						</div>
+					</div>
+				</div>
+				<a href="/page/group/group.xhtml">
+					<div class="panel-footer">
+						<span class="pull-left">View Details</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<div class="col-lg-3 col-md-6">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-xs-3">
+							<i class="fa fa-support fa-5x"></i>
+						</div>
+						<div class="col-xs-9 text-right">
+							<div class="huge">#{homeView.countGroupsRunning()}</div>
+							<div>Groups Running</div>
+						</div>
+					</div>
+				</div>
+				<a href="/page/group/group.xhtml">
+					<div class="panel-footer">
+						<span class="pull-left">View Details</span>
+						<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+						<div class="clearfix"></div>
+					</div>
+				</a>
+			</div>
+		</div>
+
+<ui:remove>
+	<!--
+	<div class="col-lg-8 col-md-6">
+		<p:chart type="line" model="#{statisticView.lineModel}"
+				 responsive="true"/>
+	</div>
+	-->
+</ui:remove>
+	</div>
+</h:form>
+	<p:inputText value="." disabled="true" rendered="false"/>
+</ui:define>
+</ui:composition>
+</html>

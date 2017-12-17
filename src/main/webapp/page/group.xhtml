@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/resources/layout/layout.xhtml">
+<ui:define name="titulocontent">
+	Groups
+</ui:define>
+
+<ui:define name="row">
+<h:form id="formgroup">
+<p:messages id="msgs" closable="true"/>
+
+<h:panelGrid id="idGroupDetail" columns="1">
+
+		<h:panelGrid columns="1" id="validButton" rendered="#{groupView.render_validButton}">
+			<h:outputText value="Url or GroupId"/>
+			<h:panelGrid columns="3">
+				<p:inputText id="urlOrIdGroup" value="#{groupView.urlOrIdGroup}"
+						size="80"/>
+				<p:spacer width="10"/>
+				<p:commandButton value=" Validade"
+								 update="idGroupDetail msgurlOrIdGroup msgs"
+							 actionListener="#{groupView.validade}"/>
+			</h:panelGrid>
+			<p:message id="msgurlOrIdGroup" for="urlOrIdGroup"/>
+			<p:watermark value="Url or GroupID" for="urlOrIdGroup" id="watermark"/>
+		</h:panelGrid>
+
+
+	<h:panelGrid columns="1" rendered="#{groupView.render_groupDetail}">
+		<h:panelGroup>
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Id "/>
+				<p:inputText value="#{groupView.groupSelect.groupId}" disabled="true"/>
+				<h:outputLabel value="Name "/>
+				<p:inputText value="#{groupView.groupSelect.name}" disabled="true"/>
+				<h:outputLabel value="Description "/>
+				<p:inputTextarea value="#{groupView.groupSelect.description}" disabled="true"
+						rows="4" autoResize="true"/>
+				<h:outputLabel value="Updated Time "/>
+				<p:calendar value="#{groupView.groupSelect.updatedTime}" disabled="true">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+				</p:calendar>
+				<h:outputLabel value="Interval Poll Minutes"/>
+				<p:inputText value="#{groupView.groupSelect.intervalPoll}"
+							 disabled="#{groupView.isStarted(groupView.groupSelect)}"/>
+				<h:outputLabel value="Start Date "/>
+				<p:calendar value="#{groupView.groupSelect.started}" disabled="#{groupView.isStarted(groupView.groupSelect)}"
+						pattern="dd/MM/yyyy HH:mm" mask="true" maxdate="#{groupView.dateNow()}"/>
+			</h:panelGrid>
+
+			<h:panelGrid columns="4">
+				<p:commandButton value="Save" actionListener="#{groupView.save}"
+								 update="idGroupDetail pdatatable :formgroup:msgs" disabled="#{groupView.disable_buttonsave}"/>
+				<p:commandButton value="Back" actionListener="#{groupView.click_Cancel}"
+								 update="idGroupDetail pdatatable"/>
+				<p:commandButton value="Delete" actionListener="#{groupView.click_Delete}"
+								 update="idGroupDetail pdatatable"/>
+				<p:commandLink value="Track Log" action="/page/logger.xhtml?faces-redirect=true"/>
+			</h:panelGrid>
+		</h:panelGroup>
+
+		<h:panelGrid columns="2" rendered="#{not groupView.render_validButton}">
+			<p:commandButton value="Start" disabled="#{groupView.isStarted(groupView.groupSelect)}"
+					update="idGroupDetail" actionListener="#{groupView.startGroup(groupView.groupSelect)}"/>
+			<p:commandButton value="Stop" actionListener="#{groupView.stopGroup(groupView.groupSelect)}"
+				disabled="#{not groupView.isStarted(groupView.groupSelect)}"
+					update="idGroupDetail"/>
+		</h:panelGrid>
+
+	</h:panelGrid>
+
+</h:panelGrid>
+
+<h:panelGrid id="pdatatable">
+	<h:panelGrid rendered="#{groupView.render_datatable}">
+	<p:commandButton value="New" update="pdatatable idGroupDetail" immediate="true"
+					 actionListener="#{groupView.click_new}"/>
+	<br/>
+
+	<p:dataTable var="g" value="#{groupView.groups}" emptyMessage="No groups found"
+				 selectionMode="single" selection="#{groupView.groupSelect}"
+				 rowKey="#{g.id}"
+				 paginatorPosition="bottom"
+				 rows="10"
+				 paginator="true"
+				 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				 rowsPerPageTemplate="5,10,20">
+		<p:ajax event="rowSelect" listener="#{groupView.click_ItemDatatable}" update=":formgroup:pdatatable :formgroup:idGroupDetail" />
+		<p:column headerText="Id" width="180">
+			<h:outputText value="#{g.groupId}" />
+		</p:column>
+		<p:column headerText="Name">
+			<h:outputText value="#{g.name}" />
+		</p:column>
+		<p:column headerText="Started" width="100">
+			<h:outputText value="#{groupView.isStarted(g)}" />
+		</p:column>
+	</p:dataTable>
+	</h:panelGrid>
+</h:panelGrid>
+</h:form>
+</ui:define>
+</ui:composition>
+</html>

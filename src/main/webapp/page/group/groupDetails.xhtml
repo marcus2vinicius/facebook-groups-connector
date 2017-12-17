@@ -1,0 +1,156 @@
+<ui:component xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<div class="row">
+	<h:panelGroup id="validButton" rendered="#{groupDetailsView.render_searchGroups}">
+		<div class="form-group">
+
+			<p:inputText id="urlOrIdGroup" value="#{groupDetailsView.urlOrIdGroup}"
+						 style="width: 40%"/>
+			<p:spacer width="10px"/>
+
+			<p:commandLink update="panelDetail"
+						   actionListener="#{groupDetailsView.validade}"
+						   styleClass="btn btn-default">
+				<i class="glyphicon glyphicon-search"></i> Validate
+			</p:commandLink>
+
+		</div>
+	</h:panelGroup>
+</div>
+<div class="row">
+
+	<div class="col-lg-6">
+		<h:panelGroup id="panelDetail">
+			<h:panelGrid columns="2" >
+				<h:outputLabel value="Group ID "/>
+				<p:inputText value="#{groupDetailsView.groupSelect.groupId}" disabled="#{groupDetailsView.readOnly}"/>
+				<h:outputLabel value="Name "/>
+				<p:inputText value="#{groupDetailsView.groupSelect.name}" disabled="#{groupDetailsView.readOnly}"/>
+				<h:outputLabel value="Description "/>
+				<p:inputTextarea value="#{groupDetailsView.groupSelect.description}"
+								 rows="4" autoResize="true" disabled="#{groupDetailsView.readOnly}"/>
+				<h:outputLabel value="Updated Time "/>
+				<p:calendar value="#{groupDetailsView.groupSelect.updatedTime}" disabled="#{groupDetailsView.readOnly}">
+					<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss"/>
+				</p:calendar>
+			</h:panelGrid>
+
+			<br/>
+
+			<h:panelGroup>
+				<p:commandLink update="formgroup"
+							   actionListener="#{groupDetailsView.save}"
+							   disabled="#{groupDetailsView.disable_buttonsave}"
+							   styleClass="btn btn-default">
+					<i class="glyphicon glyphicon-floppy-disk"></i> Save
+				</p:commandLink>
+
+				<p:spacer width="10"/>
+
+
+				<p:commandLink update="formgroup"
+							   actionListener="#{groupDetailsView.click_Cancel}"
+							   styleClass="btn btn-default">
+					<i class="glyphicon glyphicon-arrow-left"></i> Back
+				</p:commandLink>
+
+				<p:spacer width="10"/>
+
+				<p:commandLink rendered="#{not groupDetailsView.render_searchGroups}"
+							   styleClass="btn btn-default" type="button" onclick="PF('dlg3').show();">
+					<i class="glyphicon glyphicon-remove"></i> Delete
+
+				</p:commandLink>
+
+				<p:dialog header="Are you certain that you want delete this group?"
+						  widgetVar="dlg3" showEffect="explode" hideEffect="bounce" height="100"
+						modal="true">
+					<p:commandLink rendered="#{not groupDetailsView.render_searchGroups}"
+								   styleClass="btn btn-default" update="formgroup"
+								   actionListener="#{groupDetailsView.click_Delete}">
+						<i class="glyphicon glyphicon-ok"></i> Yes
+					</p:commandLink>
+					<p:spacer width="20px"/>
+					<p:commandLink styleClass="btn btn-default" type="button"
+								   onclick="PF('dlg3').hide();">
+						<i class="glyphicon glyphicon-remove"></i> No
+					</p:commandLink>
+				</p:dialog>
+
+			</h:panelGroup>
+		</h:panelGroup>
+
+	</div>
+
+	<div class="col-lg-6">
+		<h:panelGrid columns="1" id="startGroup" rendered="#{groupDetailsView.groupSelect.isSalved()}">
+
+
+			<div class="btn-group" role="group" aria-label="Start Group">
+				<h:panelGrid columns="3">
+				<p:commandLink update="formgroup"
+							   disabled="#{groupDetailsView.isStarted(groupListView.groupSelect)}"
+							   actionListener="#{groupDetailsView.startGroup}"
+							   styleClass="btn btn-default">
+					<i class="glyphicon glyphicon-play"></i> Start
+				</p:commandLink>
+
+				<p:spacer width="5"/>
+
+				<p:commandLink update="formgroup"
+							   disabled="#{not groupDetailsView.isStarted(groupListView.groupSelect)}"
+							   actionListener="#{groupDetailsView.stopGroup}"
+							   styleClass="btn btn-default">
+					<i class="glyphicon glyphicon-stop"></i> Stop
+				</p:commandLink>
+				</h:panelGrid>
+			</div>
+
+			<hr style="height:1px; visibility:hidden; margin-bottom: 0;margin-top: 5px;" />
+
+			<p:panelGrid columns="2">
+				<h:outputLabel value="Interval Poll Minutes"/>
+				<p:inputText value="#{groupDetailsView.groupSelect.intervalPoll}"
+							 disabled="#{groupDetailsView.isStarted(groupListView.groupSelect)}"/>
+				<h:outputLabel value="Start Date "/>
+				<p:calendar value="#{groupDetailsView.groupSelect.started}"
+							disabled="#{groupDetailsView.isStarted(groupListView.groupSelect)}"
+							pattern="dd/MM/yyyy HH:mm" mask="true" maxdate="#{groupDetailsView.dateNow()}"/>
+			</p:panelGrid>
+
+			<p:spacer height="5"/>
+
+			<p:commandLink value="Track Log" action="/page/logger.xhtml?faces-redirect=true"/>
+
+			<p:spacer height="5"/>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">Activities Send LRS</div>
+				<div class="panel-body">
+					<ul class="list-group">
+						<li class="list-group-item">
+							<span class="badge">19</span>
+							Posts Sent
+						</li>
+						<li class="list-group-item">
+							<span class="badge">171</span>
+							Comments Sent
+						</li>
+						<li class="list-group-item">
+							<span class="badge">483</span>
+							Likes Sent
+						</li>
+					</ul>
+				</div>
+			</div>
+
+
+
+
+		</h:panelGrid>
+	</div>
+</div>
+</ui:component>

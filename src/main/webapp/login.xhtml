@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+        <title>Facebook Groups Connector</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <!--==== CSS ====-->
+            <link rel='stylesheet prefetch' href="${facesContext.externalContext.requestContextPath}/resources/css/bootstrap.min.css"/>
+            <link rel="stylesheet" href="${facesContext.externalContext.requestContextPath}/resources/css/style.css"/>
+    <!-- =========== -->
+</h:head>
+<h:body>
+      <div class="wrapper">
+        <img alt="Facebook Groups" src="${facesContext.externalContext.requestContextPath}/resources/images/group.png"/>
+            <h:form styleClass="form-signin">
+              <p class="form-signin-heading">Facebook Groups Connector</p>
+                <h:commandButton styleClass="btn btn-lg btn-primary btn-block" value="Sign in"
+                                 actionListener="#{loginView.login}"/>
+                <img alt="SmartLak" style="margin-top:30px;" src="${facesContext.externalContext.requestContextPath}/resources/images/smartlakfooter.png"/>
+            </h:form>
+      </div>
+</h:body>
+</html>
