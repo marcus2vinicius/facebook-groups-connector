@@ -8,6 +8,8 @@ Desta forma espera-se com os dados coletados deduzir informações implícitas c
 
 ###### Tags: xAPI, Facebook, SmartLAK, Big Data, Learning Analytics
 
+![Diagram](https://github.com/marcus2vinicius/facebook-groups-connector/blob/master/documentation/diagram.png)
+
 
 # Instruções
 
